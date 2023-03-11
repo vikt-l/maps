@@ -12,6 +12,9 @@
                 {{ item.content }}
             </div>
             <div>
+                <img src="static/news_img/{{ item.map }}" alt="здесь должна была быть картинка, но не нашлась">
+            </div>
+            <div>
                 Автор - {{ item.user.name }}, Дата написания - {{ item.created_date }}
             </div>
             {% if current_user.is_authenticated and current_user == item.user %}

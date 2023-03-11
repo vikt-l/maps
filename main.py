@@ -1,11 +1,16 @@
 from flask import Flask, render_template, redirect, request, abort
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+import shutil
+
+import os
 
 from forms.news import NewsForm
 from forms.user import RegisterForm, LoginForm
 from data.news import News
 from data.users import User
 from data import db_session
+
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -40,10 +45,24 @@ def add_news():
         news = News()
         news.title = form.title.data
         news.content = form.content.data
+
+        f = form.map.data
+        filename = secure_filename(f.filename)
+        i = 1
+        while f'{i}_{news.title}_{filename}' in os.listdir('static/news_img/'):
+            i += 1
+
+        f.save(os.path.join(app.instance_path, 'photos', f'{i}_{news.title}_{filename}'))
+
+
+        shutil.move(f'instance/photos/{i}_{news.title}_{filename}', f'static/news_img/{i}_{news.title}_{filename}')
+        news.map = f'{i}_{news.title}_{filename}'
+
         news.is_private = form.is_private.data
         current_user.news.append(news)
         db_sess.merge(current_user)
         db_sess.commit()
+
         return redirect('/')
     return render_template('news.html', title='Добавление новости', form=form)
 
@@ -54,6 +73,7 @@ def news_delete(id):
     db_sess = db_session.create_session()
     news = db_sess.query(News).filter(News.id == id, News.user == current_user).first()
     if news:
+        os.remove(f'static/news_img/{news.map}')
         db_sess.delete(news)
         db_sess.commit()
     else:
@@ -71,6 +91,7 @@ def edit_news(id):
         if news:
             form.title.data = news.title
             form.content.data = news.content
+            form.map.data = news.map
             form.is_private.data = news.is_private
         else:
             abort(404)
