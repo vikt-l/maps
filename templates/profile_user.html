@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Мой профиль</h1>
+<form action="" method="post">
+    <h4>{{ user.name }}</h4>
+    <h3>О себе</h3>
+    <div>{{ user.about }}</div>
+    <h3>Почта</h3>
+    <div>{{ user.email }}</div>
+</form>
+{% endblock %}

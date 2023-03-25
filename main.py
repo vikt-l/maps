@@ -91,7 +91,7 @@ def edit_news(id):
         if news:
             form.title.data = news.title
             form.content.data = news.content
-            form.map.data = news.map
+
             form.is_private.data = news.is_private
         else:
             abort(404)
@@ -153,6 +153,14 @@ def login():
             return redirect("/")
         return render_template('login.html', message="Неправильный логин или пароль", form=form)
     return render_template('login.html', title='Авторизация', form=form)
+
+
+@app.route('/profile_user/<int:id_user>', methods=['GET', 'POST'])
+def profile_user(id_user):
+    if current_user.id == id_user:
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(User.id == id_user).first()
+        return render_template('profile_user.html', title='Профиль', user=user)
 
 
 if __name__ == '__main__':
