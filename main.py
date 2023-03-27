@@ -160,7 +160,8 @@ def profile_user(id_user):
     if current_user.id == id_user:
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.id == id_user).first()
-        return render_template('profile_user.html', title='Профиль', user=user)
+        news = db_sess.query(News).filter(News.user == current_user)
+        return render_template('profile_user.html', title='Профиль', user=user, news=news)
 
 
 if __name__ == '__main__':

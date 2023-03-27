@@ -5,8 +5,29 @@
 <form action="" method="post">
     <h4>{{ user.name }}</h4>
     <h3>О себе</h3>
-    <div>{{ user.about }}</div>
+    <div class="col-md6 border rounded" >{{ user.about }}</div>
     <h3>Почта</h3>
     <div>{{ user.email }}</div>
+    <h3>Записи в блоге</h3>
+    {% for item in news %}
+        <div class="col-md6 border rounded">
+            <h2>{{ item.title }}</h2>
+            <div>
+                {{ item.content }}
+            </div>
+            <div>
+                <img src="../static/news_img/{{ item.map }}" alt="здесь должна была быть картинка, но не нашлась">
+            </div>
+            <div>
+                Автор - {{ item.user.name }}, Дата написания - {{ item.created_date }}
+            </div>
+            {% if current_user.is_authenticated and current_user == item.user %}
+                <div>
+                    <a href="/news/{{ item.id }}" class="btn btn-warning">Изменить</a>
+                    <a href="/news_delete/{{ item.id }}" class="btn btn-danger">Удалить</a>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
 </form>
 {% endblock %}
