@@ -164,5 +164,32 @@ def profile_user(id_user):
         return render_template('profile_user.html', title='Профиль', user=user, news=news)
 
 
+@app.route('/profile_edit/<int:id_user>', methods=['GET', 'POST'])
+def profile_edit(id_user):
+    if current_user.id == id_user:
+        form = RegisterForm()
+        if request.method == "GET":
+            db_sess = db_session.create_session()
+            user = db_sess.query(User).filter(User.id == id_user).first()
+            if user:
+                form.name.data = user.name
+                form.about.data = user.about
+                form.email.data = user.email
+            else:
+                abort(404)
+        if request.method == "POST":
+            db_sess = db_session.create_session()
+            user = db_sess.query(User).filter(User.id == id_user).first()
+            if user:
+                user.name = form.name.data
+                user.about = form.about.data
+                user.email = form.email.data
+                db_sess.commit()
+                return redirect(f'/profile_user/{id_user}')
+            else:
+                abort(404)
+        return render_template('profile_edit.html', title='Изменение профиля', form=form)
+
+
 if __name__ == '__main__':
     main()

@@ -8,6 +8,7 @@
     <div class="col-md6 border rounded" >{{ user.about }}</div>
     <h3>Почта</h3>
     <div>{{ user.email }}</div>
+    <a href="/profile_edit/{{ user.id }}" class="btn btn-primary">Изменить данные пользователя</a>
     <h3>Записи в блоге</h3>
     {% for item in news %}
         <div class="col-md6 border rounded">
