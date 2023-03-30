@@ -3,9 +3,9 @@ from PIL import Image
 from io import BytesIO
 
 # пример данных для поиска
-toponym_longitude = 37.5
-toponym_lattitude = 55
-delta = 0.005
+toponym_longitude = 37.617188
+toponym_lattitude = 55.755713
+delta = 21
 text = 'аптека'
 toponym_to_find = 'Москва, Театральная пл.'
 
