@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Works log</h3>
+<p>
+    <a class="btn btn-outline-primary " href="/departments">Departments</a>
+
+{% if current_user.is_authenticated %}
+        <a class="btn btn-outline-primary " href="/add_job">Add Job</a>
+{% endif %}
+</p>
+{% for item in jobs %}
+    <h5>Actions # {{ item.id }}</h5>
+    <table>
+        <tr class="alert alert-secondary" role="alert">
+            <th>Название работы</th><th>Фамилия и имя ответственного</th>
+            <th>Продолжительность в часах</th><th>Список id команды</th>
+            <th>Hazard category</th><th>Завершена или нет</th>
+        </tr> <!--ряд с ячейками заголовков-->
+
+        <tr class="alert alert-primary" role="alert">
+            <td>{{ item.job }}</td><td>{{ item.team_user.name }} {{ item.team_user.surname }}</td>
+            <td>{{ item.work_size }}</td><td>{{ item.collaborators }}</td>
+            <td>{{ item.department }}</td>
+            <td class="alert alert-danger" role="alert">{{ item.is_finished }}</td>
+        </tr> <!--ряд с ячейками тела таблицы-->
+        {% if current_user.is_authenticated and (current_user.id == item.team_leader or current_user.id == 1) %}
+            <p>
+                <a class="btn btn-outline-primary " href="/redact_job/{{ item.id }}">Redact Job</a>
+                <a class="btn btn-outline-primary " href="/delete_job/{{ item.id }}">Delete Job</a>
+            </p>
+        {% endif %}
+    </table>
+{% endfor %}
+{% endblock %}
