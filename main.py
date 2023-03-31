@@ -29,6 +29,7 @@ print(f"Ощущаемая температура: {weather['fact']['feels_like'
 print(f"Скорость ветра: {weather['fact']['wind_speed']}м/с")
 print(f"Скорость порывов ветра: {weather['fact']['wind_gust']}м/с")
 print(f"Влажность: {weather['fact']['humidity']}%")
+print(f"Давление: {weather['fact']['pressure_mm']} мм рт. ст.")
 if weather['fact']['prec_strength'] == 0:
     print('Осадки: Без осадков')
 elif weather['fact']['prec_strength'] == 0.25:
