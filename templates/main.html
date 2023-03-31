@@ -131,24 +131,20 @@
             </div>
             <div>
                 <form class="login_form" method="post">
-                    <p><input type="text" class="form-control"
-                              placeholder="longitude:" name="longitude"></p>
-                    <p><input type="text" class="form-control"
-                              placeholder="lattitude:" name="lattitude"></p>
-                    <p><input type="text" class="form-control"
-                              placeholder="delta:" name="delta"></p>
-                    <p><input type="text" class="form-control"
-                              placeholder="object:" name="text"></p>
-                    <p><input type="text" class="form-control"
-                              placeholder="address:" name="toponym_to_find"></p>
+                    <p>{{ form.longitude(type="text", class="form-control", placeholder="longitude:") }}</p>
+                    <p>{{ form.lattitude(type="text", class="form-control", placeholder="lattitude:") }}</p>
+                    <p>{{ form.delta(type="text", class="form-control", placeholder="delta:") }}</p>
+                    <p>{{ form.object(type="text", class="form-control", placeholder="object:") }}</p>
+                    <p>{{ form.address(type="text", class="form-control", placeholder="address:") }}</p>
+                    <button type="submit" class="btn btn-primary">Поиск
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                            viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </button>
                 </form>
             </div>
-            <button type="submit" class="btn btn-primary">Поиск
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
-                     viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg>
-            </button>
+
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             </div>
             <p></p>
@@ -215,7 +211,7 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             </div>
-            <img src="{{ img }}" alt="">
+            <img src="{{ img }}" alt="" width="720" height="720">
 
             <canvas class="my-4 w-100" id="myChart" width="875" height="369"
                     style="display: block; box-sizing: border-box; height: 246px; width: 583px;"></canvas>
