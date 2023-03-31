@@ -28,8 +28,8 @@ def index():
                 img = get_obj(toponym_longitude, toponym_lattitude, object, delta)
             else:
                 img = get_info(toponym_longitude, toponym_lattitude, delta)
-        return render_template('default.html', form=form, img=img)
-    return render_template('default.html', form=form, img='static/img/default_img.png')
+        return render_template('main.html', form=form, img=img)
+    return render_template('main.html', form=form, img='static/img/default_img.png')
 
 
 if __name__ == "__main__":
