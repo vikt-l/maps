@@ -56,7 +56,7 @@ def get_address():
 
     im = Image.open(BytesIO(response.content))
     im.resize((1500, 1125))
-    im.save('img1.png')
+    im.save('images.png')
 
 
 def get_obj():
