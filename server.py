@@ -32,7 +32,7 @@ def main():
 
 @app.route('/')
 def index():
-    return render_template('1.html')
+    return render_template('index.html')
 
 
 @app.route('/map_edit', methods=['GET', 'POST'])
@@ -56,8 +56,8 @@ def map_edit():
                 img = get_obj(toponym_longitude, toponym_lattitude, object, delta)
             else:
                 img = get_info(toponym_longitude, toponym_lattitude, delta)
-        return render_template('main.html', form=form, img=img)
-    return render_template('main.html', form=form, img='static/img/default_img.png')
+        return render_template('map_edit.html', form=form, img=img)
+    return render_template('map_edit.html', form=form, img='static/img/default_img.png')
 
 
 @app.route('/register', methods=['GET', 'POST'])
