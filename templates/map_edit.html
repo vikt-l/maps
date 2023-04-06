@@ -9,6 +9,26 @@
           crossorigin="anonymous">
     <link rel="shortcut icon" href="static/img/favicon.png" type="image/png">
     <title>Maps</title>
+    <style>
+   H1 {
+    font-size: 160%;
+    color: black;
+   }
+
+   P {color: black;}
+
+   .color1 {
+   background: 	#4682B4
+   }
+
+   .color2 {
+   background: #6495ED
+   }
+
+   .color3 {
+   background: 	#87CEFA;
+   }
+    </style>
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -207,9 +227,72 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             </div>
             <img src="{{ img }}" alt="" width="720" height="540">
+            <h1 class="d-flex justify-content-center" style="padding: 10px"> Другие работы </h1>
+            <div class="carousel slide" data-ride="carousel">
+                    <div id="carousel-basic" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner" role="listbox">
+                            <div class="carousel-item active color1">
+                                <div class="d-flex justify-content-center" style="height: 300px">
+                                    <h1 style="padding: 10px">Карты</h1>
+                                </div>
+                                <div class="container">
+                                    <div class="carousel-caption text-end">
+                                        <p>Карты помогут найти нужное место, построят до него маршрут на общественном транспорте,
+                                            автомобиле или пешком, </p>
+                                        <p>покажут погоду на карте и прогноз погоды на ближайшие дни</p>
+                                    </div>
+                                </div>
+                            </div>
 
-            <canvas class="my-4 w-100" id="myChart" width="875" height="369"
-                    style="display: block; box-sizing: border-box; height: 246px; width: 583px;"></canvas>
+
+                            <div class="carousel-item color2">
+                                <div class="d-flex justify-content-center" style="height: 300px">
+                                    <h1 style="padding: 10px">Карты</h1>
+                                </div>
+                                <div class="container">
+                                    <div class="carousel-caption text-end">
+                                        <p>Карты помогут найти нужное место, построят до него маршрут на общественном транспорте,
+                                            автомобиле или пешком, </p>
+                                        <p>покажут погоду на карте и прогноз погоды на ближайшие дни</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item color3">
+                                <div class="d-flex justify-content-center" style="height: 300px">
+                                    <h1 style="padding: 10px">Карты</h1>
+                                </div>
+                                <div class="container">
+                                    <div class="carousel-caption text-end">
+                                        <p>Карты помогут найти нужное место, построят до него маршрут на общественном транспорте,
+                                            автомобиле или пешком, </p>
+                                        <p>покажут погоду на карте и прогноз погоды на ближайшие дни</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Controls -->
+                            <a class="carousel-control-prev" href="#carousel-basic" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Назад</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carousel-basic" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Вперед</span>
+                            </a>
+                        </div>
+                    </div>
+                    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                            crossorigin="anonymous"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                            crossorigin="anonymous"></script>
+                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                            crossorigin="anonymous"></script>
+                            <canvas class="my-4 w-100" id="myChart" width="875" height="369"
+                                    style="display: block; box-sizing: border-box; height: 246px; width: 583px;"></canvas>
+            </div>
         </main>
     </div>
 </div>
