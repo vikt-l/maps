@@ -12,15 +12,7 @@
   transition:
     width 300ms ease-out,
     opacity 150ms 150ms ease-in;
-  transform: translate3d(0, 0, 0);
-}
-
-
-
-
-
-
-
+  transform: translate3d(0, 0, 0);}
     </style>
     <meta charset="utf-8">
     <link rel="dns-prefetch" href="https://github.githubassets.com">
@@ -261,29 +253,70 @@
 
 <body class="logged-out env-production page-responsive height-full d-flex flex-column header-overlay"
       style="word-wrap: break-word;">
-    <main>
-        <div class="d-flex flex-auto flex-justify-center pt-12">
-            <div class="js-continue-container width-full z-1 signup-text-suggester" data-catalyst="">
-                <div class="m-4 p-4 f4 color-shadow-small bg-gray-800-mktg rounded-2 signup-content-container">
-                    <h1 class="sr-only">Welcome to Maps!</h1>
-                    <typing-effect
-                            data-lines="[&quot; Welcome to Maps! &quot;]"
-                            data-continue-to="email-container" class="js-signup-typed-welcome">
+<main>
+    <div>
+        <form class="login_form" method="post">
+            <div class="d-flex flex-auto flex-justify-center pt-12">
+                <div class="js-continue-container width-full z-1 signup-text-suggester" data-catalyst="">
+                    <div class="m-4 p-4 f4 color-shadow-small bg-gray-800-mktg rounded-2 signup-content-container">
+                        <h1 class="sr-only">Welcome to Maps!</h1>
+                        <typing-effect
+                                data-lines="[&quot; Добро пожаловать! &quot;]"
+                                data-continue-to="email-container" class="js-signup-typed-welcome">
                         <span data-target="typing-effect.content"
                               class="text-mono text-gray-mktg"> Welcome to Maps! </span>
-                        <span data-target="typing-effect.cursor" class="typing-effect-cursor" hidden="">|</span>
-                    </typing-effect>
-                    </form>
-                </div>
-                <div class="js-continue-hint-container mx-4 px-4 f4 font-mktg text-gray-mktg">
-                    <p id="email-err" data-hint-for="email" role="alert" aria-atomic="true"></p>
-                    <p id="password-err" data-hint-for="password" role="alert" aria-atomic="true" hidden=""></p>
-                    <p id="login-err" data-hint-for="login" role="alert" aria-atomic="true" hidden=""></p>
-                </div>
-                </text-suggester>
+                            <span data-target="typing-effect.cursor" class="typing-effect-cursor" hidden="">|</span>
+                        </typing-effect>
+                    </div>
+                    <div class="pl-4">
+                        <p><input type="email" class="form-control userForm" id="email" aria-describedby="emailHelp"
+                                  placeholder="Введите адрес почты" name="email"></p>
+                        <p><input type="password" class="form-control userForm" id="password"
+                                  placeholder="Введите пароль"
+                                  name="password"></p>
+                        <p><input type="password" class="form-control userForm" id="password_again"
+                                  placeholder="Повторите пароль"
+                                  name="password"></p>
+                        <p><input type="text" class="form-control userForm" id="phone"
+                                  placeholder="Введите номер телефона"
+                                  name="telephon_number"></p>
+                        <p><input type="text" class="form-control userForm" id="name" placeholder="Введите имя"
+                                  name="name"></p>
+                        <p><input type="text" class="form-control userForm" id="surname" placeholder="Введите фамилию"
+                                  name="surname"></p>
 
+                        <div class="form-group">
+                            <label for="form-check">Укажите пол</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sex" id="male" value="male" checked>
+                                <label class="form-check-label" for="male">
+                                    Мужской
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sex" id="female" value="female">
+                                <label class="form-check-label" for="female">
+                                    Женский
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="photo">Приложите фотографию</label>
+                            <input type="file" class="form-control-file" id="photo" name="file">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary user">Зарегистрироваться</button>
+                    </div>
+                </div>
             </div>
-            <style>
+        </form>
+    </div>
+    </text-suggester>
+
+
+    </div>
+    <style>
                 H1 {
                  font-size: 160%;
                  color: white;
@@ -293,7 +326,15 @@
                 background: 	#4682B4
                 }
 
-            </style>
-    </main>
+                .user {
+                background: white;
+                color: #090c35;
+                }
+
+                .userForm {
+                width: 605px;
+                }
+    </style>
+</main>
 </body>
 </html>
