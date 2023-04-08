@@ -19,6 +19,7 @@ class User(SqlAlchemyBase, UserMixin):
     country = sqlalchemy.Column(sqlalchemy.String)
     avatar_name = sqlalchemy.Column(sqlalchemy.String)
     telephon_number = sqlalchemy.Column(sqlalchemy.String)
+    avatar = sqlalchemy.Column(sqlalchemy.String, default='')
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
 
