@@ -78,7 +78,6 @@ def register():
             country=form.country.data,
             telephon_number=form.telephon_number.data,
             email=form.email.data,
-            about=form.about.data
         )
         user.set_password(form.password.data)
         db_sess.add(user)
@@ -95,9 +94,15 @@ def login():
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
-            return redirect("/")
+            return redirect("/map_edit")
         return render_template('login.html', message="Неправильный логин или пароль", form=form)
     return render_template('login.html', title='Авторизация', form=form)
+
+
+@app.route('/profile_user/<int:id_user>', methods=['GET', 'POST'])
+def profile_user(id_user):
+    if current_user.id == id_user:
+        return render_template('profile_user.html', title='Профиль')
 
 
 if __name__ == "__main__":
