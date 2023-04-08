@@ -59,7 +59,7 @@ def get_address(toponym_to_find, delta):
 
         im = Image.open(BytesIO(response.content))
         im.save('static/img/map.png')
-        return 'static/img/map.png'
+        return 'static/img/map.png', toponym_longitude, toponym_lattitude
     except Exception:
         return 'static/img/default_img.png'
 
@@ -103,6 +103,6 @@ def get_obj(toponym_longitude, toponym_lattitude, text, delta):
 
             im = Image.open(BytesIO(response.content))
             im.save('static/img/map.png')
-            return 'static/img/map.png'
+            return 'static/img/map.png', point[0], point[1]
     except Exception:
         return 'static/img/default_img.png'

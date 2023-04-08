@@ -38,6 +38,8 @@ def index():
 @app.route('/map_edit', methods=['GET', 'POST'])
 def map_edit():
     form = DefaultForm()
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
     if request.method == 'POST':
         if form.delta.data:
             delta = form.delta.data
@@ -47,17 +49,17 @@ def map_edit():
         img = 'static/img/default_img.png'
         if form.address.data:
             address = form.address.data
-            img = get_address(address, delta)
-        elif form.longitude.data and form.lattitude.data:
+            img, form.longitude.data, form.lattitude.data = get_address(address, delta)
+        if form.longitude.data and form.lattitude.data:
             toponym_longitude = form.longitude.data
             toponym_lattitude = form.lattitude.data
             if form.object.data:
                 object = form.object.data
-                img = get_obj(toponym_longitude, toponym_lattitude, object, delta)
-            else:
+                img, form.longitude.data, form.lattitude.data = get_obj(toponym_longitude, toponym_lattitude, object, delta)
+            elif not form.address.data:
                 img = get_info(toponym_longitude, toponym_lattitude, delta)
-        return render_template('map_edit.html', form=form, img=img)
-    return render_template('map_edit.html', form=form, img='static/img/default_img.png')
+        return render_template('map_edit.html', form=form, img=img, user=user)
+    return render_template('map_edit.html', form=form, img='static/img/default_img.png', user=user)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -102,7 +104,9 @@ def login():
 @app.route('/profile_user/<int:id_user>', methods=['GET', 'POST'])
 def profile_user(id_user):
     if current_user.id == id_user:
-        return render_template('profile_user.html', title='Профиль')
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(User.id == current_user.id).first()
+        return render_template('profile_user.html', title='Профиль', user=user)
 
 
 if __name__ == "__main__":
