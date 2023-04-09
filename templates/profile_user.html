@@ -107,11 +107,25 @@
             <div class="position-sticky pt-3 sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">
-                            <a href="#" class="d-block link-dark text-decoration-none"
+                        <a class="nav-link active" aria-current="page">
+                            <a class="d-block link-dark text-decoration-none"
                                data-bs-toggle="dropdown" aria-expanded="true">
                                 <img src="https://github.com/mdo.png" alt="mdo" width="290" height="290"
                                      class="rounded-circle">
+                            </a>
+
+                            <h1 class="d-flex justify-content-center" >{{ user.name }} {{ user.surname }}</h1>
+                            <h3 class="d-flex justify-content-center" > {{user.email}} </h3>
+                            <h5 class="d-flex justify-content-center" >Телефон: {{ user.telephon_number }}</h5>
+                            <h5 class="d-flex justify-content-center" >Страна: {{ user.country }}</h5>
+                            <h5 class="d-flex justify-content-center" >Город: {{ user.city }}</h5>
+                            <h5 class="d-flex justify-content-center" >О себе:</h5>
+                            <p style="border: 1px solid black;">{{ user.about }}</p>
+
+                            <a class="btn btn-primary" href="/profile_edit/{{ current_user.id }}">Редактировать профиль
+                            </a>
+                            <p></p>
+                            <a class="btn btn-primary" href="/password_edit/{{ current_user.id }}">Сменить пароль
                             </a>
                         </a>
                     </li>

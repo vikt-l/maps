@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from getMap import get_info, get_address, get_obj
 from forms.default import DefaultForm
-from forms.user import RegisterForm, LoginForm
+from forms.user import RegisterForm, LoginForm, EditPassword, EditProfile
 from data import db_session
 from data.users import User
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -80,6 +80,7 @@ def register():
             country=form.country.data,
             telephon_number=form.telephon_number.data,
             email=form.email.data,
+            about=''
         )
         user.set_password(form.password.data)
         db_sess.add(user)
@@ -109,5 +110,57 @@ def profile_user(id_user):
         return render_template('profile_user.html', title='Профиль', user=user)
 
 
+@app.route('/profile_edit/<int:id_user>', methods=['GET', 'POST'])
+def profile_edit(id_user):
+    if current_user.id == id_user:
+        form = EditProfile()
+        if request.method == "GET":
+            db_sess = db_session.create_session()
+            user = db_sess.query(User).filter(User.id == id_user).first()
+            if user:
+                form.name.data = user.name
+                form.surname.data = user.surname
+                form.about.data = user.about
+
+                form.email.data = user.email
+                form.telephon_number.data = user.telephon_number
+
+                form.city.data = user.city
+                form.country.data = user.country
+
+        if form.validate_on_submit():
+            db_sess = db_session.create_session()
+            user = db_sess.query(User).filter(User.id == id_user).first()
+            if user:
+                user.name = form.name.data
+                user.surname = form.surname.data
+                user.about = form.about.data
+                user.email = form.email.data
+                user.telephon_number = form.telephon_number.data
+                user.city = form.city.data
+                user.country = form.country.data
+                db_sess.commit()
+                return redirect(f'/profile_user/{id_user}')
+        return render_template('profile_edit.html', title='Изменение профиля', form=form)
+
+
+@app.route('/password_edit/<int:id_user>', methods=['GET', 'POST'])
+def password_edit(id_user):
+    if current_user.id == id_user:
+        form = EditPassword()
+        if form.validate_on_submit():
+            db_sess = db_session.create_session()
+            user = db_sess.query(User).filter(User.id == id_user).first()
+            if not user.check_password(form.total_password.data):
+                return render_template('password_edit.html', title='Изменение пароля', form=form,
+                                       message='Неверный страрый пароль')
+            if not form.password.data == form.password_again.data:
+                return render_template('password_edit.html', title='Изменение пароля', form=form,
+                                       message='Не совпадают новые пароли')
+            if user and user.check_password(form.total_password.data) and form.password.data == form.password_again.data:
+                user.set_password(form.password.data)
+                db_sess.commit()
+                return redirect(f'/profile_user/{id_user}')
+        return render_template('password_edit.html', title='Изменение пароля', form=form, message='')
 if __name__ == "__main__":
     main()
