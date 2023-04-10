@@ -149,15 +149,15 @@
             <div>
                 <form class="login_form" method="post">
                     {% if form.longitude.data %}
-                        <p>{{ form.longitude(type="text", class="form-control", placeholder="delta:", value=form.longitude.data ) }}</p>
+                        <p>{{ form.longitude(type="text", class="form-control", placeholder="longitude:", value=form.longitude.data ) }}</p>
                     {% else %}
-                        <p>{{ form.longitude(type="text", class="form-control", placeholder="delta:") }}</p>
+                        <p>{{ form.longitude(type="text", class="form-control", placeholder="longitude:") }}</p>
                     {% endif %}
 
                     {% if form.lattitude.data %}
-                        <p>{{ form.lattitude(type="text", class="form-control", placeholder="delta:", value=form.lattitude.data ) }}</p>
+                        <p>{{ form.lattitude(type="text", class="form-control", placeholder="lattitude:", value=form.lattitude.data ) }}</p>
                     {% else %}
-                        <p>{{ form.lattitude(type="text", class="form-control", placeholder="delta:") }}</p>
+                        <p>{{ form.lattitude(type="text", class="form-control", placeholder="lattitude:") }}</p>
                     {% endif %}
 
                     {% if form.delta.data %}

@@ -1,10 +1,13 @@
 from flask import Flask, render_template, request, redirect
 from getMap import get_info, get_address, get_obj
 from forms.default import DefaultForm
-from forms.user import RegisterForm, LoginForm, EditPassword, EditProfile
+from forms.user import RegisterForm, LoginForm, EditPassword, EditProfile, AddAvatar
 from data import db_session
 from data.users import User
+from data.news import News
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+
+import os
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -80,7 +83,8 @@ def register():
             country=form.country.data,
             telephon_number=form.telephon_number.data,
             email=form.email.data,
-            about=''
+            about='',
+            avatar='test.jpg'
         )
         user.set_password(form.password.data)
         db_sess.add(user)
@@ -107,7 +111,19 @@ def profile_user(id_user):
     if current_user.id == id_user:
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
-        return render_template('profile_user.html', title='Профиль', user=user)
+        news = db_sess.query(News).filter(News.user == current_user)
+        form = AddAvatar()
+        if form.validate_on_submit():
+
+            f = form.avatar.data
+            form.avatar.file.save(os.path.join(app.config['static/avatars'], f'{id_user}.png'))
+            user.avatar = f'{id_user}.png'
+            db_sess.commit()
+            db_sess = db_session.create_session()
+            user = db_sess.query(User).filter(User.id == current_user.id).first()
+            news = db_sess.query(News).filter(News.user == current_user)
+            return render_template('profile_user.html', title='Профиль', user=user, news=news, form=form)
+        return render_template('profile_user.html', title='Профиль', user=user, news=news, form=form)
 
 
 @app.route('/profile_edit/<int:id_user>', methods=['GET', 'POST'])

@@ -107,12 +107,17 @@
             <div class="position-sticky pt-3 sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page">
+                        <a class="nav-link active" aria-current="page" >
+
                             <a class="d-block link-dark text-decoration-none"
                                data-bs-toggle="dropdown" aria-expanded="true">
-                                <img src="https://github.com/mdo.png" alt="mdo" width="290" height="290"
+                                <img src="/static/avatars/{{ user.avatar }}" alt="mdo" width="290" height="290"
                                      class="rounded-circle">
                             </a>
+                            <form method="post" action="">{{ form.csrf_token }}
+                            <div>{{ form.avatar() }}</div>
+                            <div>{{ form.submit() }}</div></form>
+
 
                             <h1 class="d-flex justify-content-center" >{{ user.name }} {{ user.surname }}</h1>
                             <h3 class="d-flex justify-content-center" > {{user.email}} </h3>
@@ -137,8 +142,18 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             </div>
-            <img src="static/images/img.png" alt="" width="520" height="390">
-            <p>Карта 1</p>
+            <div>
+            {% for new in news %}
+                <div>
+                    <h1>{{ new.title }}</h1>
+                    <p>{{ new.content }}</p>
+                    <img src="static/images/default_img.png" alt="" width="520" height="390">
+                </div>
+            {% endfor %}
+
+            </div>
+
+
 
             <canvas class="my-4 w-100" id="myChart" width="875" height="369"
                     style="display: block; box-sizing: border-box; height: 246px; width: 583px;"></canvas>
