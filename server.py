@@ -41,6 +41,7 @@ def index():
 
 
 @app.route('/map_edit', methods=['GET', 'POST'])
+@login_required
 def map_edit():
     form = DefaultForm()
     db_sess = db_session.create_session()
@@ -109,6 +110,7 @@ def login():
 
 
 @app.route('/profile_user/<int:id_user>', methods=['GET', 'POST'])
+@login_required
 def profile_user(id_user):
     if current_user.id == id_user:
         db_sess = db_session.create_session()
@@ -129,6 +131,7 @@ def profile_user(id_user):
 
 
 @app.route('/profile_edit/<int:id_user>', methods=['GET', 'POST'])
+@login_required
 def profile_edit(id_user):
     if current_user.id == id_user:
         form = EditProfile()
@@ -163,6 +166,7 @@ def profile_edit(id_user):
 
 
 @app.route('/password_edit/<int:id_user>', methods=['GET', 'POST'])
+@login_required
 def password_edit(id_user):
     if current_user.id == id_user:
         form = EditPassword()
