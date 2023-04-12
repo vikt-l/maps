@@ -2,12 +2,14 @@ from flask import Flask, render_template, request, redirect
 from getMap import get_info, get_address, get_obj
 from forms.default import DefaultForm
 from forms.user import RegisterForm, LoginForm, EditPassword, EditProfile, AddAvatar
+from forms.news import NewsForm
 from data import db_session
 from data.users import User
 from data.news import News
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 import os
+import shutil
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -178,5 +180,38 @@ def password_edit(id_user):
                 db_sess.commit()
                 return redirect(f'/profile_user/{id_user}')
         return render_template('password_edit.html', title='Изменение пароля', form=form, message='')
+
+
+@app.route('/news', methods=['GET', 'POST'])
+@login_required
+def add_news():
+    form = NewsForm()
+    img = "static/img/default_img.png"
+    if 'map.png' in os.listdir('static/img/'):
+        img = 'static/img/map.png'
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        news = News()
+        news.title = form.title.data
+        news.content = form.content.data
+        news.is_private = form.is_private.data
+
+        current_user.news.append(news)
+        db_sess.merge(current_user)
+        db_sess.commit()
+
+        db_sess = db_session.create_session()
+
+        news = db_sess.query(News).filter(News.map == None).first()
+        if 'map.png' in os.listdir('static/img/'):
+            shutil.move(f'{ img }', f'static/news_img/{news.id}.png')
+        else:
+            shutil.copy(f'{img}', f'static/news_img/{news.id}.png')
+        news.map = f'{news.id}.png'
+        db_sess.commit()
+        return redirect('/map_edit')
+    return render_template('news.html', title='Добавление новости', form=form, img=img)
+
+
 if __name__ == "__main__":
     main()

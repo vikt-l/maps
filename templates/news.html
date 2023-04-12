@@ -1,6 +1,32 @@
-{% extends "base.html" %}
-
-{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <link rel="shortcut icon" href="static/img/favicon.png" type="image/png">
+    <title>Публикация карты</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand" href="/profile_user/{{ current_user.id }}">{{ current_user.name }} {{ current_user.surname }}</a>
+        {% if current_user.is_authenticated %}
+            <a class="navbar-brand" href="/map_edit">Редактор карт</a>
+            <a class="navbar-brand" href="/logout">Выйти</a>
+        {% else %}
+            <p>
+                <a class="btn btn-primary " href="/register">Зарегистрироваться</a>
+                <a class="btn btn-success" href="/login">Войти</a>
+            </p>
+        {% endif %}
+    </nav>
+</header>
+<!-- Begin page content -->
+<main role="main" class="container">
     <h1>Добавление новости</h1>
     <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
@@ -23,11 +49,19 @@
             {% endfor %}
         </p>
         <p>
-            {{ form.map.label }}<br>
-            {{ form.map() }}
+            <img src="{{ img }}" alt="">
         </p>
         <p>{{ form.is_private() }} {{ form.is_private.label }}</p>
         <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
         {{ message }}
     </form>
-{% endblock %}
+    <style>
+
+                body {
+                background: 	#87CEFA
+                }
+
+    </style>
+</main>
+</body>
+</html>
