@@ -32,9 +32,9 @@ class EditPassword(FlaskForm):
 
 
 class EditProfile(FlaskForm):
-    email = EmailField('Почта', validators=[DataRequired()])
-    name = StringField('Имя пользователя', validators=[DataRequired()])
-    surname = StringField('Фамилия пользователя', validators=[DataRequired()])
+    email = EmailField('*Почта', validators=[DataRequired()])
+    name = StringField('*Имя пользователя', validators=[DataRequired()])
+    surname = StringField('*Фамилия пользователя', validators=[DataRequired()])
     city = StringField('Город')
     country = StringField('Страна')
     telephon_number = StringField('Телефон')

@@ -157,6 +157,7 @@
                         </typing-effect>
                     </div>
                     <div class="pl-4" >
+                        <h3 style="padding: 0px 0px 10px 0px;" >Поля, помеченные *, обязательны для заполнения</h3>
                         {{ form.csrf_token }}
                         <p>{{ form.name.label }}</p>
                         <p>{{ form.name(type="text", class="form-control userForm", placeholder="Введите имя:", value=form.name.data) }}</p>
