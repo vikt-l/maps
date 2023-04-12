@@ -109,7 +109,7 @@
     <script crossorigin="anonymous" defer="defer" type="application/javascript"
             src="https://github.githubassets.com/assets/signup-a91009bc28d2.js"></script>
     <link rel="shortcut icon" href="static/img/favicon.png" type="image/png">
-    <title>registration</title>
+    <title>Регистрация</title>
     <meta name="current-catalog-service-hash"
           content="507e874288c76f570a246d72cfafc881216cd6973006f4c917f50398aef5ca3d">
 
@@ -158,14 +158,23 @@
                         </typing-effect>
                     </div>
                     <div class="pl-4" >
+                        <h3 style="padding: 0px 0px 10px 0px;" >Поля, помеченные *, обязательны для заполнения</h3>
                         {{ form.csrf_token }}
+                        <p>{{ form.email.label }}</p>
                         <p>{{ form.email(type="email", class="form-control userForm", id="email", placeholder="Введите адрес почты") }}</p>
+                        <p>{{ form.telephon_number.label }}</p>
                         <p>{{ form.telephon_number(type="text", class="form-control userForm", id="phone", placeholder="Введите номер телефона") }}</p>
+                        <p>{{ form.password.label }}</p>
                         <p>{{ form.password(type="password", class="form-control userForm", id="password", placeholder="Введите пароль") }}</p>
+                        <p>{{ form.password_again.label }}</p>
                         <p>{{ form.password_again(type="password", class="form-control userForm", id="password_again", placeholder="Повторите пароль") }}</p>
+                        <p>{{ form.name.label }}</p>
                         <p>{{ form.name(type="text", class="form-control userForm", id="name", placeholder="Введите имя") }}</p>
+                        <p>{{ form.surname.label }}</p>
                         <p>{{ form.surname(type="text", class="form-control userForm", id="surname", placeholder="Введите фамилию") }}</p>
+                        <p>{{ form.city.label }}</p>
                         <p>{{ form.city(type="text", class="form-control userForm", id="city", placeholder="Введите город") }}</p>
+                        <p>{{ form.country.label }}</p>
                         <p>{{ form.country(type="text", class="form-control userForm", id="country", placeholder="Введите страну") }}</p>
 
                         <p>{{ form.submit(type="submit", class="btn btn-primary user") }}</p>

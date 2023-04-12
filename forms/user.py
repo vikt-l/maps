@@ -5,11 +5,11 @@ from flask_wtf.file import FileRequired
 
 
 class RegisterForm(FlaskForm):
-    email = EmailField('Почта', validators=[DataRequired()])
-    password = PasswordField('Пароль', validators=[DataRequired()])
-    password_again = PasswordField('Повторите пароль', validators=[DataRequired()])
-    name = StringField('Имя пользователя', validators=[DataRequired()])
-    surname = StringField('Фамилия пользователя', validators=[DataRequired()])
+    email = EmailField('*Почта', validators=[DataRequired()])
+    password = PasswordField('*Пароль', validators=[DataRequired()])
+    password_again = PasswordField('*Повторите пароль', validators=[DataRequired()])
+    name = StringField('*Имя пользователя', validators=[DataRequired()])
+    surname = StringField('*Фамилия пользователя', validators=[DataRequired()])
     city = StringField('Город')
     country = StringField('Страна')
     telephon_number = StringField('Телефон')
