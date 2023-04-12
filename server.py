@@ -114,9 +114,9 @@ def profile_user(id_user):
         news = db_sess.query(News).filter(News.user == current_user)
         form = AddAvatar()
         if form.validate_on_submit():
-
             f = form.avatar.data
-            form.avatar.file.save(os.path.join(app.config['static/avatars'], f'{id_user}.png'))
+            app.config['UPLOAD_FOLDER'] = 'static/users_avatars/'
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], f'{id_user}.png'))
             user.avatar = f'{id_user}.png'
             db_sess.commit()
             db_sess = db_session.create_session()

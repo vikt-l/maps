@@ -47,6 +47,7 @@ def add_news():
         news.content = form.content.data
 
         f = form.map.data
+        print(f)
         filename = secure_filename(f.filename)
         i = 1
         while f'{i}_{news.title}_{filename}' in os.listdir('static/news_img/'):

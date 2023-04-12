@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, TextAreaField, SubmitField, BooleanField, EmailField, FileField
 from wtforms.validators import DataRequired
+from flask_wtf.file import FileRequired
 
 
 class RegisterForm(FlaskForm):
@@ -42,5 +43,5 @@ class EditProfile(FlaskForm):
 
 
 class AddAvatar(FlaskForm):
-    avatar = FileField('Аватарка')
+    avatar = FileField('Аватарка', validators=[FileRequired()])
     submit = SubmitField('Обновить')

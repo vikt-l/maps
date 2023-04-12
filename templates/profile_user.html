@@ -111,12 +111,15 @@
 
                             <a class="d-block link-dark text-decoration-none"
                                data-bs-toggle="dropdown" aria-expanded="true">
-                                <img src="/static/avatars/{{ user.avatar }}" alt="mdo" width="290" height="290"
+                                <img src="/static/users_avatars/{{ user.avatar }}" alt="" width="290" height="290"
                                      class="rounded-circle">
                             </a>
-                            <form method="post" action="">{{ form.csrf_token }}
-                            <div>{{ form.avatar() }}</div>
-                            <div>{{ form.submit() }}</div></form>
+                            <p></p>
+                            <form method="post" action="" enctype="multipart/form-data">
+                                {{ form.csrf_token }}
+                            <div class="d-flex justify-content-center" >{{ form.avatar(class="btn btn-primary") }}</div>
+                                <p></p>
+                            <div class="d-flex justify-content-center" >{{ form.submit(class="btn btn-primary") }}</div></form>
 
 
                             <h1 class="d-flex justify-content-center" >{{ user.name }} {{ user.surname }}</h1>
@@ -127,10 +130,10 @@
                             <h5 class="d-flex justify-content-center" >О себе:</h5>
                             <p style="border: 1px solid black;">{{ user.about }}</p>
 
-                            <a class="btn btn-primary" href="/profile_edit/{{ current_user.id }}">Редактировать профиль
+                            <a class="btn btn-primary d-flex justify-content-center" href="/profile_edit/{{ current_user.id }}">Редактировать профиль
                             </a>
                             <p></p>
-                            <a class="btn btn-primary" href="/password_edit/{{ current_user.id }}">Сменить пароль
+                            <a class="btn btn-primary d-flex justify-content-center" href="/password_edit/{{ current_user.id }}">Сменить пароль
                             </a>
                         </a>
                     </li>
