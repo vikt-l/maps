@@ -32,6 +32,8 @@ def logout():
 @app.route('/')
 def index():
     db_sess = db_session.create_session()
+    user = db_sess.query(User).first()
+    login_user(user)
     user = db_sess.query(User).filter(User.id == current_user.id).first()
     news = db_sess.query(News).filter(News.user == current_user)
     form = AddAvatar()
