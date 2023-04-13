@@ -111,7 +111,7 @@
 
                             <a class="d-block link-dark text-decoration-none"
                                data-bs-toggle="dropdown" aria-expanded="true">
-                                <img src="/static/users_avatars/{{ user.avatar }}" alt="" width="290" height="290"
+                                <img src="/static/img/users_avatars/{{ user.avatar }}" alt="" width="290" height="290"
                                      class="rounded-circle">
                             </a>
                             <p></p>
@@ -145,18 +145,15 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             </div>
-            <div>
+            <div style="padding: 0px 0px 0px 40px;">
             {% for new in news %}
-                <div>
+                <div style="padding: 0px 0px 10px 0px; border: 1px solid black; width: 522px" >
                     <h1>{{ new.title }}</h1>
                     <p>{{ new.content }}</p>
-                    <img src="/static/news_img/{{ new.map }}" alt="" width="520" height="390">
+                    <img src="/static/img/news_img/{{ new.map }}" alt="" width="520" height="390">
                 </div>
             {% endfor %}
-
             </div>
-
-
 
             <canvas class="my-4 w-100" id="myChart" width="875" height="369"
                     style="display: block; box-sizing: border-box; height: 246px; width: 583px;"></canvas>
