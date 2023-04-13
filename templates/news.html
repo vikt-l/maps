@@ -27,38 +27,44 @@
 </header>
 <!-- Begin page content -->
 <main role="main" class="container">
-    <h1>Добавление новости</h1>
+    <h1 class="d-flex justify-content-center" >Добавление новости</h1>
     <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.title.label }}<br>
-            {{ form.title(class="form-control") }}<br>
-            {% for error in form.title.errors %}
-                <p class="alert alert-danger" role="alert">
-                    {{ error }}
-                </p>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.content.label }}<br>
-            {{ form.content(class="form-control") }}<br>
-            {% for error in form.content.errors %}
-                <p content="alert alert-danger" role="alert">
-                    {{ error }}
-                </p>
-            {% endfor %}
-        </p>
-        <p>
-            <img src="{{ img }}" alt="">
-        </p>
-        <p>{{ form.is_private() }} {{ form.is_private.label }}</p>
-        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-        {{ message }}
+        <div class="row d-flex justify-content-center">
+            <div>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <img src="{{ img }}" alt="">
+                </div>
+                <div>
+                    {{ form.title.label }}<br>
+                    {{ form.title(class="form-control") }}<br>
+                    {% for error in form.title.errors %}
+                        <p class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+                </div>
+                <div>
+                    {{ form.content.label }}<br>
+                    {{ form.content(class="form-control") }}<br>
+                    {% for error in form.content.errors %}
+                        <p content="alert alert-danger" role="alert">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+                </div>
+                    <p class="d-flex justify-content-center" >{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+                </div>
+
+                {{ message }}
+            </div>
+        </div>
+    </div>
     </form>
     <style>
 
                 body {
-                background: 	#87CEFA
+                background: 	#6495ED
                 }
 
     </style>
