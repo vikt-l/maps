@@ -50,13 +50,13 @@ def add_news():
         print(f)
         filename = secure_filename(f.filename)
         i = 1
-        while f'{i}_{news.title}_{filename}' in os.listdir('static/news_img/'):
+        while f'{i}_{news.title}_{filename}' in os.listdir('static/img/news_img/'):
             i += 1
 
         f.save(os.path.join(app.instance_path, 'photos', f'{i}_{news.title}_{filename}'))
 
 
-        shutil.move(f'instance/photos/{i}_{news.title}_{filename}', f'static/news_img/{i}_{news.title}_{filename}')
+        shutil.move(f'instance/photos/{i}_{news.title}_{filename}', f'static/img/news_img/{i}_{news.title}_{filename}')
         news.map = f'{i}_{news.title}_{filename}'
 
         news.is_private = form.is_private.data
@@ -74,7 +74,7 @@ def news_delete(id):
     db_sess = db_session.create_session()
     news = db_sess.query(News).filter(News.id == id, News.user == current_user).first()
     if news:
-        os.remove(f'static/news_img/{news.map}')
+        os.remove(f'static/img/news_img/{news.map}')
         db_sess.delete(news)
         db_sess.commit()
     else:
