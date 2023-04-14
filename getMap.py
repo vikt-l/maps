@@ -64,9 +64,6 @@ def get_address(toponym_to_find, delta):
         return 'static/img/default_img.png'
 
 
-import requests
-
-
 def get_weather(lons, lats):
     lons = lons
     lats = lats
@@ -93,8 +90,9 @@ def get_weather(lons, lats):
 
     prognoz = []
 
-    weth = {}
+
     for i in range (1, 7):
+        weth = {}
         weth['dates'] = f"{weather['forecasts'][i]['date']}"
         weth['temp'] = f"{weather['forecasts'][i]['parts']['day']['temp_avg']}"
         weth['wind'] = f"{weather['forecasts'][i]['parts']['day']['wind_speed']}"
