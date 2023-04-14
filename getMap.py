@@ -86,12 +86,9 @@ def get_weather(lons, lats):
     elif weather['fact']['prec_strength'] == 1:
         now_weth['prec'] = f"Очень сильный {precs[weather['fact']['prec_type']]}"
 
-
-
     prognoz = []
 
-
-    for i in range (1, 7):
+    for i in range(1, 5):
         weth = {}
         weth['dates'] = f"{weather['forecasts'][i]['date']}"
         weth['temp'] = f"{weather['forecasts'][i]['parts']['day']['temp_avg']}"
@@ -109,8 +106,7 @@ def get_weather(lons, lats):
         elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 1:
             weth['prec'] = f"Осадки: Очень сильный {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
         prognoz.append(weth)
-    return now_weth
-    return prognoz
+    return now_weth, prognoz
             
             
 def get_obj(toponym_longitude, toponym_lattitude, text, delta):

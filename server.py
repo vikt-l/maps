@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect
-from getMap import get_info, get_address, get_obj
+from getMap import get_info, get_address, get_obj, get_weather
 from forms.default import DefaultForm
 from forms.user import RegisterForm, LoginForm, EditPassword, EditProfile
 from forms.news import NewsForm
@@ -46,6 +46,7 @@ def map_edit():
     form = DefaultForm()
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == current_user.id).first()
+    now_weth, prognoz = None, None
     if request.method == 'POST':
         if form.delta.data:
             delta = form.delta.data
@@ -59,13 +60,16 @@ def map_edit():
         if form.longitude.data and form.lattitude.data:
             toponym_longitude = form.longitude.data
             toponym_lattitude = form.lattitude.data
+
+            now_weth, prognoz = get_weather(toponym_longitude, toponym_lattitude)
+
             if form.object.data:
                 object = form.object.data
                 img, form.longitude.data, form.lattitude.data = get_obj(toponym_longitude, toponym_lattitude, object, delta)
             elif not form.address.data:
                 img = get_info(toponym_longitude, toponym_lattitude, delta)
-        return render_template('map_edit.html', form=form, img=img, user=user)
-    return render_template('map_edit.html', form=form, img='static/img/default_img.png', user=user)
+        return render_template('map_edit.html', form=form, img=img, user=user, now_weth=now_weth, prognoz=prognoz)
+    return render_template('map_edit.html', form=form, img='static/img/default_img.png', user=user, now_weth=now_weth, prognoz=prognoz)
 
 
 @app.route('/register', methods=['GET', 'POST'])
