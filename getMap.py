@@ -109,6 +109,8 @@ def get_weather(lons, lats):
         elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 1:
             weth['prec'] = f"Осадки: Очень сильный {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
         prognoz.append(weth)
+    return now_weth
+    return prognoz
             
             
 def get_obj(toponym_longitude, toponym_lattitude, text, delta):
