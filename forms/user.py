@@ -40,8 +40,3 @@ class EditProfile(FlaskForm):
     telephon_number = StringField('Телефон')
     about = TextAreaField("Немного о себе")
     submit = SubmitField('Продолжить')
-
-
-class AddAvatar(FlaskForm):
-    avatar = FileField('Аватарка', validators=[FileRequired()])
-    submit = SubmitField('Обновить')

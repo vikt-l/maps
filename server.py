@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from getMap import get_info, get_address, get_obj
 from forms.default import DefaultForm
-from forms.user import RegisterForm, LoginForm, EditPassword, EditProfile, AddAvatar
+from forms.user import RegisterForm, LoginForm, EditPassword, EditProfile
 from forms.news import NewsForm
 from data import db_session
 from data.users import User
@@ -116,18 +116,17 @@ def profile_user(id_user):
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         news = db_sess.query(News).filter(News.user == current_user)
-        form = AddAvatar()
-        if form.validate_on_submit():
-            f = form.avatar.data
-            app.config['UPLOAD_FOLDER'] = 'static/users_avatars/'
+        if request.method == "POST":
+            f = request.files['file']
+            app.config['UPLOAD_FOLDER'] = 'static/img/users_avatars/'
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], f'{id_user}.png'))
             user.avatar = f'{id_user}.png'
             db_sess.commit()
             db_sess = db_session.create_session()
             user = db_sess.query(User).filter(User.id == current_user.id).first()
             news = db_sess.query(News).filter(News.user == current_user)
-            return render_template('profile_user.html', title='Профиль', user=user, news=news, form=form)
-        return render_template('profile_user.html', title='Профиль', user=user, news=news, form=form)
+            return render_template('profile_user.html', title='Профиль', user=user, news=news)
+        return render_template('profile_user.html', title='Профиль', user=user, news=news)
 
 
 @app.route('/profile_edit/<int:id_user>', methods=['GET', 'POST'])
@@ -208,9 +207,9 @@ def add_news():
 
         news = db_sess.query(News).filter(News.map == None).first()
         if 'map.png' in os.listdir('static/img/'):
-            shutil.move(f'{ img }', f'static/news_img/{news.id}.png')
+            shutil.move(f'{ img }', f'static/img/news_img/{news.id}.png')
         else:
-            shutil.copy(f'{img}', f'static/news_img/{news.id}.png')
+            shutil.copy(f'{img}', f'static/img/news_img/{news.id}.png')
         news.map = f'{news.id}.png'
         db_sess.commit()
         return redirect('/map_edit')
