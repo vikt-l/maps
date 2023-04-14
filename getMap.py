@@ -89,28 +89,28 @@ def get_weather(lons, lats):
     elif weather['fact']['prec_strength'] == 1:
         prec = f"Очень сильный {precs[weather['fact']['prec_type']]}"
 
-    temps = []
-    dates = []
-    winds = []
-    humiditys = []
-    pressures = []
-    precs = []
+
+
+    prognoz = []
+
+    weth = {}
     for i in range (1, 7):
-        dates.append(f"{weather['forecasts'][i]['date']}")
-        temps.append(f"{weather['forecasts'][i]['parts']['day']['temp_avg']}")
-        winds.append(f"{weather['forecasts'][i]['parts']['day']['wind_speed']}")
-        humiditys.append(f"{weather['forecasts'][i]['parts']['day']['humidity']}")
-        pressures.append(f"{weather['forecasts'][i]['parts']['day']['pressure_mm']}")
+        weth['dates'] = f"{weather['forecasts'][i]['date']}"
+        weth['temp'] = f"{weather['forecasts'][i]['parts']['day']['temp_avg']}"
+        weth['wind'] = f"{weather['forecasts'][i]['parts']['day']['wind_speed']}"
+        weth['humidity'] = f"{weather['forecasts'][i]['parts']['day']['humidity']}"
+        weth['pressure'] = f"{weather['forecasts'][i]['parts']['day']['pressure_mm']}"
         if weather['forecasts'][i]['parts']['day']['prec_strength'] == 0:
-            precs.append('Осадки: Без осадков')
+            weth['prec'] = 'Осадки: Без осадков'
         elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 0.25:
-            precs.append(f"Осадки: Слабый {prec[weather['forecasts'][i]['parts']['day']['prec_type']]}")
+            weth['prec'] = f"Осадки: Слабый {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
         elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 0.5:
-            precs.append(f"Осадки: {prec[weather['forecasts'][i]['parts']['day']['prec_type']]}")
+            weth['prec'] = f"Осадки: {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
         elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 0.75:
-            precs.append(f"Осадки: Сильный {prec[weather['forecasts'][i]['parts']['day']['prec_type']]}")
+            weth['prec'] = f"Осадки: Сильный {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
         elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 1:
-            precs.append(f"Осадки: Очень сильный {prec[weather['forecasts'][i]['parts']['day']['prec_type']]}")
+            weth['prec'] = f"Осадки: Очень сильный {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
+        prognoz.append(weth)
             
             
 def get_obj(toponym_longitude, toponym_lattitude, text, delta):
