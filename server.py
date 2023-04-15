@@ -46,7 +46,7 @@ def map_edit():
     form = DefaultForm()
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == current_user.id).first()
-    now_weth, prognoz = None, None
+    prognoz1, prognoz2 = None, None
     if request.method == 'POST':
         if form.delta.data:
             delta = form.delta.data
@@ -58,18 +58,18 @@ def map_edit():
             address = form.address.data
             img, form.longitude.data, form.lattitude.data = get_address(address, delta)
         if form.longitude.data and form.lattitude.data:
+
             toponym_longitude = form.longitude.data
             toponym_lattitude = form.lattitude.data
-
-            now_weth, prognoz = get_weather(toponym_longitude, toponym_lattitude)
+            prognoz1, prognoz2 = get_weather(toponym_longitude, toponym_lattitude)
 
             if form.object.data:
                 object = form.object.data
                 img, form.longitude.data, form.lattitude.data = get_obj(toponym_longitude, toponym_lattitude, object, delta)
             elif not form.address.data:
                 img = get_info(toponym_longitude, toponym_lattitude, delta)
-        return render_template('map_edit.html', form=form, img=img, user=user, now_weth=now_weth, prognoz=prognoz)
-    return render_template('map_edit.html', form=form, img='static/img/default_img.png', user=user, now_weth=now_weth, prognoz=prognoz)
+        return render_template('map_edit.html', form=form, img=img, user=user, prognoz1=prognoz1, prognoz2=prognoz2)
+    return render_template('map_edit.html', form=form, img='static/img/default_img.png', user=user, prognoz1=prognoz1, prognoz2=prognoz2)
 
 
 @app.route('/register', methods=['GET', 'POST'])

@@ -22,6 +22,7 @@ def get_info(toponym_longitude, toponym_lattitude, delta):
         map_api_server = "http://static-maps.yandex.ru/1.x/"
         response = requests.get(map_api_server, params=map_params)
         im = Image.open(BytesIO(response.content))
+        im.resize((720, 720))
         im.save('static/img/map.png')
         return 'static/img/map.png'
     except Exception:
@@ -58,6 +59,7 @@ def get_address(toponym_to_find, delta):
         response = requests.get(map_api_server, params=map_params)
 
         im = Image.open(BytesIO(response.content))
+        im.resize((720, 720))
         im.save('static/img/map.png')
         return 'static/img/map.png', toponym_longitude, toponym_lattitude
     except Exception:
@@ -66,47 +68,57 @@ def get_address(toponym_to_find, delta):
 
 
 def get_weather(lons, lats):
-    now_weth = {}
-    url_yandex = f'https://api.weather.yandex.ru/v2/forecast/?lat={lons}&lon={lats}&[lang=ru_RU]'
-    yandex_req = requests.get(url_yandex, headers={'X-Yandex-API-Key': 'b5abe2c2-418a-405e-9cce-d1e7d1a2505a'})
-    weather = yandex_req.json()
-    precs = ['без осадков', 'дождь', 'дождь со снегом', 'снег', 'град']
-    now_weth['temp'] = weather['fact']['temp']
-    now_weth['wind_speed'] = weather['fact']['wind_speed']
-    now_weth['humidity'] = weather['fact']['humidity']
-    now_weth['pressure_mm'] = weather['fact']['pressure_mm']
-    if weather['fact']['prec_strength'] == 0:
-        now_weth['prec'] = "Без осадков"
-    elif weather['fact']['prec_strength'] == 0.25:
-        now_weth['prec'] = f"Слабый {precs[weather['fact']['prec_type']]}"
-    elif weather['fact']['prec_strength'] == 0.5:
-        now_weth['prec'] = f"{precs[weather['fact']['prec_type']]}"
-    elif weather['fact']['prec_strength'] == 0.75:
-        now_weth['prec'] = f"Сильный {precs[weather['fact']['prec_type']]}"
-    elif weather['fact']['prec_strength'] == 1:
-        now_weth['prec'] = f"Очень сильный {precs[weather['fact']['prec_type']]}"
+    try:
+        url_yandex = f'https://api.weather.yandex.ru/v2/forecast/?lat={lons}&lon={lats}&[lang=ru_RU]'
+        yandex_req = requests.get(url_yandex, headers={'X-Yandex-API-Key': 'b5abe2c2-418a-405e-9cce-d1e7d1a2505a'})
+        weather = yandex_req.json()
+        precs = ['без осадков', 'дождь', 'дождь со снегом', 'снег', 'град']
 
-    prognoz = []
+        prognoz1 = []
 
-    for i in range(1, 5):
-        weth = {}
-        weth['dates'] = f"{weather['forecasts'][i]['date']}"
-        weth['temp'] = f"{weather['forecasts'][i]['parts']['day']['temp_avg']}"
-        weth['wind'] = f"{weather['forecasts'][i]['parts']['day']['wind_speed']}"
-        weth['humidity'] = f"{weather['forecasts'][i]['parts']['day']['humidity']}"
-        weth['pressure'] = f"{weather['forecasts'][i]['parts']['day']['pressure_mm']}"
-        if weather['forecasts'][i]['parts']['day']['prec_strength'] == 0:
-            weth['prec'] = 'Осадки: Без осадков'
-        elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 0.25:
-            weth['prec'] = f"Осадки: Слабый {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
-        elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 0.5:
-            weth['prec'] = f"Осадки: {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
-        elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 0.75:
-            weth['prec'] = f"Осадки: Сильный {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
-        elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 1:
-            weth['prec'] = f"Осадки: Очень сильный {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
-        prognoz.append(weth)
-    return now_weth, prognoz
+        for i in range(0, 3):
+            weth = {}
+            weth['dates'] = f"{weather['forecasts'][i]['date']}"
+            weth['temp'] = f"{weather['forecasts'][i]['parts']['day']['temp_avg']}"
+            weth['wind'] = f"{weather['forecasts'][i]['parts']['day']['wind_speed']}"
+            weth['humidity'] = f"{weather['forecasts'][i]['parts']['day']['humidity']}"
+            weth['pressure'] = f"{weather['forecasts'][i]['parts']['day']['pressure_mm']}"
+            if weather['forecasts'][i]['parts']['day']['prec_strength'] == 0:
+                weth['prec'] = 'Осадки: Без осадков'
+            elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 0.25:
+                weth['prec'] = f"Осадки: Слабый {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
+            elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 0.5:
+                weth['prec'] = f"Осадки: {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
+            elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 0.75:
+                weth['prec'] = f"Осадки: Сильный {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
+            elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 1:
+                weth['prec'] = f"Осадки: Очень сильный {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
+            prognoz1.append(weth)
+
+        prognoz2 = []
+
+        for i in range(3, 6):
+            weth = {}
+            weth['dates'] = f"{weather['forecasts'][i]['date']}"
+            weth['temp'] = f"{weather['forecasts'][i]['parts']['day']['temp_avg']}"
+            weth['wind'] = f"{weather['forecasts'][i]['parts']['day']['wind_speed']}"
+            weth['humidity'] = f"{weather['forecasts'][i]['parts']['day']['humidity']}"
+            weth['pressure'] = f"{weather['forecasts'][i]['parts']['day']['pressure_mm']}"
+            if weather['forecasts'][i]['parts']['day']['prec_strength'] == 0:
+                weth['prec'] = 'Осадки: Без осадков'
+            elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 0.25:
+                weth['prec'] = f"Осадки: Слабый {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
+            elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 0.5:
+                weth['prec'] = f"Осадки: {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
+            elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 0.75:
+                weth['prec'] = f"Осадки: Сильный {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
+            elif weather['forecasts'][i]['parts']['day']['prec_strength'] == 1:
+                weth['prec'] = f"Осадки: Очень сильный {precs[weather['forecasts'][i]['parts']['day']['prec_type']]}"
+            prognoz2.append(weth)
+
+        return prognoz1, prognoz2
+    except Exception:
+        return False, False
             
             
 def get_obj(toponym_longitude, toponym_lattitude, text, delta):
@@ -147,6 +159,7 @@ def get_obj(toponym_longitude, toponym_lattitude, text, delta):
             response = requests.get(map_api_server, params=map_params)
 
             im = Image.open(BytesIO(response.content))
+            im.resize((720, 720))
             im.save('static/img/map.png')
             return 'static/img/map.png', point[0], point[1]
     except Exception:

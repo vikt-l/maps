@@ -10,10 +10,6 @@
     <link rel="shortcut icon" href="static/img/favicon.png" type="image/png">
     <title>Maps</title>
     <style>
-   H1 {
-    font-size: 160%;
-    color: black;
-   }
 
    P {color: black;}
 
@@ -170,20 +166,58 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             </div>
-            <img src="{{ img }}" alt="" width="720" height="540">
-            <h1 class="d-flex justify-content-center" style="padding: 10px"> Другие работы </h1>
+            <div class="row">
+                <img src="{{ img }}" alt="" width="720" height="540">
+                {%if prognoz1%}
+                <div align="center">
+                    <h1>Погода</h1>
+                    <p></p>
+                    <div class="row">
+                       {%for weth in prognoz1%}
+                        <div align="left" style="padding: 0px 0px 0px 50px">
+                            {% if loop.index0  == 0 %}
+                                <h4>Сегодня</h4>
+                            {% else %}
+                                <h4>{{ weth['dates'] }}</h4>
+                            {% endif %}
+                            <h5>Температура: {{ weth['temp'] }}°C</h5>
+                            <h5>Скорость ветра: {{ weth['wind'] }}м/с</h5>
+                            <h5>Влажность: {{ weth['humidity'] }}%</h5>
+                            <h5>Давление: {{ weth['pressure'] }}мм рт. ст.</h5>
+                            <h5>{{ weth['prec'] }}</h5>
+                        </div>
+                       {%endfor%}
+                    </div>
+                    <p></p>
+                    <div class="row">
+                       {%for weth in prognoz2%}
+                        <div align="left" style="padding: 0px 0px 0px 50px">
+                            <h4>{{ weth['dates'] }}</h4>
+                            <h5>Температура: {{ weth['temp'] }}°C</h5>
+                            <h5>Скорость ветра: {{ weth['wind'] }}м/с</h5>
+                            <h5>Влажность: {{ weth['humidity'] }}%</h5>
+                            <h5>Давление: {{ weth['pressure'] }}мм рт. ст.</h5>
+                            <h5>{{ weth['prec'] }}</h5>
+                        </div>
+                       {%endfor%}
+                   </div>
+                </div>
+                {%elif prognoz1 == False%}
+                    <h1 style="padding: 0px 0px 0px 30px">Для вашего запроса погода не найдена</h1>
+                {%endif%}
+            </div>
+            <p></p>
             <div class="carousel slide" data-ride="carousel">
                     <div id="carousel-basic" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner" role="listbox">
                             <div class="carousel-item active color1">
                                 <div class="d-flex justify-content-center" style="height: 300px">
-                                    <h1 style="padding: 10px">Карты</h1>
+                                    <h2 style="padding: 10px">Карты</h2>
                                 </div>
                                 <div class="container">
                                     <div class="carousel-caption text-end">
-                                        <p>Карты помогут найти нужное место, построят до него маршрут на общественном транспорте,
-                                            автомобиле или пешком, </p>
-                                        <p>покажут погоду на карте и прогноз погоды на ближайшие дни</p>
+                                        <p>Карты помогут найти нужное место</p>
+                                        <p>покажут прогноз погоды на ближайшие дни</p>
                                     </div>
                                 </div>
                             </div>
@@ -191,26 +225,24 @@
 
                             <div class="carousel-item color2">
                                 <div class="d-flex justify-content-center" style="height: 300px">
-                                    <h1 style="padding: 10px">Карты</h1>
+                                    <h2 style="padding: 10px">Карты</h2>
                                 </div>
                                 <div class="container">
                                     <div class="carousel-caption text-end">
-                                        <p>Карты помогут найти нужное место, построят до него маршрут на общественном транспорте,
-                                            автомобиле или пешком, </p>
-                                        <p>покажут погоду на карте и прогноз погоды на ближайшие дни</p>
+                                        <p>Карты помогут найти нужное место</p>
+                                        <p>покажут прогноз погоды на ближайшие дни</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="carousel-item color3">
                                 <div class="d-flex justify-content-center" style="height: 300px">
-                                    <h1 style="padding: 10px">Карты</h1>
+                                    <h2 style="padding: 10px">Карты</h2>
                                 </div>
                                 <div class="container">
                                     <div class="carousel-caption text-end">
-                                        <p>Карты помогут найти нужное место, построят до него маршрут на общественном транспорте,
-                                            автомобиле или пешком, </p>
-                                        <p>покажут погоду на карте и прогноз погоды на ближайшие дни</p>
+                                        <p>Карты помогут найти нужное место</p>
+                                        <p>покажут прогноз погоды на ближайшие дни</p>
                                     </div>
                                 </div>
                             </div>
